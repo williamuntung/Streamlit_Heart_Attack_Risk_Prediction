@@ -3,7 +3,7 @@ import joblib
 import numpy as np
 import pandas as pd
 
-scaler = joblib.load("artifacts/preprocessor.pkl")
+preprocessor = joblib.load("artifacts/preprocessor.pkl")
 model = joblib.load("artifacts/model.pkl")
 
 def main():
@@ -72,6 +72,9 @@ def main():
             "Probability": proba
         })
 
+        # ambil hanya class hasil prediksi
+        df_proba = df_proba[df_proba["Class"] == result]
+
         st.subheader("Prediction Confidence")
         st.bar_chart(df_proba.set_index("Class"))
 
@@ -79,9 +82,9 @@ def make_prediction(features):
     # Use the loaded model to make predictions
     # Replace this with the actual code for your model
     input_array = np.array(features).reshape(1, -1)
-    X_scaled = scaler.transform(input_array)
-    prediction = model.predict(X_scaled)[0]
-    proba = model.predict_proba(X_scaled)[0]
+    X_processed = preprocessor.transform(input_array)
+    prediction = model.predict(X_processed)[0]
+    proba = model.predict_proba(X_processed)[0]
     return prediction, proba
 
 if __name__ == '__main__':
