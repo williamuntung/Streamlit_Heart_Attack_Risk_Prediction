@@ -81,11 +81,12 @@ def main():
 def make_prediction(features):
     # Use the loaded model to make predictions
     # Replace this with the actual code for your model
-    input_array = np.array(features).reshape(1, -1)
+    input_df = pd.DataFrame([input_array])
     X_processed = preprocessor.transform(input_array)
     prediction = model.predict(X_processed)[0]
     proba = model.predict_proba(X_processed)[0]
     return prediction, proba
 
 if __name__ == '__main__':
+
     main()
