@@ -65,12 +65,7 @@ def main():
         features = [age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]
         result, proba = make_prediction(features)
 
-        if result == 1:
-            temp = "High Risk"
-        else:
-            temp = "Low Risk"
-
-        st.success(f'The prediction is: {temp}')
+        st.success(f'The prediction is: {result}')
 
         df_proba = pd.DataFrame({
             "Class": model.classes_,
@@ -100,4 +95,3 @@ def make_prediction(features):
 
 if __name__ == '__main__':
     main()
-
